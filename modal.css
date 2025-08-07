@@ -21,6 +21,10 @@
   color: #212529;
 }
 
+.form-control:focus {
+  color: #212529;
+}
+
 .form-control::placeholder {
   color: #212529;
   opacity: 1;
