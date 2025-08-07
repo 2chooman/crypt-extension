@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Sample Modal Extension",
+  "version": "1.0",
+  "description": "Opens a modal with two text areas when the extension icon is clicked.",
+  "permissions": ["activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open modal"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["modal.html", "modal.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
