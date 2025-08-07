@@ -25,6 +25,17 @@
   const outputEl = $('output-text');
   const keyEl = $('key-input');
 
+  shadow.querySelectorAll('.copy-btn').forEach(btn => {
+    const target = $(btn.dataset.target);
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(target.value);
+      } catch (e) {
+        console.error('Copy failed', e);
+      }
+    });
+  });
+
   // Prevent host page keyboard shortcuts from intercepting input while typing
   const stopPropagation = e => e.stopPropagation();
   [inputEl, outputEl, keyEl].forEach(el => {

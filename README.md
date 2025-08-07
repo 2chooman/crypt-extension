@@ -5,6 +5,7 @@ CipherMate is a lightweight Chrome extension for encrypting and decrypting text 
 ## Features
 - Encrypt and decrypt text using AES-CBC from the Web Crypto API.
 - Modal interface with input, output, and key fields.
+- Copy icons on each field for quick clipboard access.
 - All processing occurs locally; no data ever leaves the page.
 - Styled with Bootstrap and a custom dark theme.
 
@@ -18,7 +19,7 @@ CipherMate is a lightweight Chrome extension for encrypting and decrypting text 
 2. Enter or paste text into **Enter text**.
 3. Provide a shared key in **Key** (the first 16 bytes are used).
 4. Click **Encrypt** or **Decrypt** to transform the text.
-5. Copy the result from **Output text** and close the modal when finished.
+5. Use the copy icons to copy any field's contents and close the modal when finished.
 
 ## Development
 This extension is fully client-side; no build step is required. Run tests with:

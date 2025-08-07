@@ -78,3 +78,8 @@
 .btn-outline-secondary:hover {
   background-color: #30363d;
 }
+
+.copy-btn {
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+}
