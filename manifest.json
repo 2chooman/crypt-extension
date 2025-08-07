@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Sample Modal Extension",
+  "name": "CipherMate",
   "version": "1.0",
-  "description": "Opens a modal with two text areas when the extension icon is clicked.",
+  "description": "A lightweight browser extension for encrypting and decrypting text using symmetric encryption. Keep your messages private and secure with a single shared key.",
   "permissions": ["activeTab", "scripting"],
   "background": {
     "service_worker": "background.js"
