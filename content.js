@@ -25,6 +25,15 @@
   const outputEl = $('output-text');
   const keyEl = $('key-input');
 
+  // Prevent host page keyboard shortcuts from intercepting input while typing
+  const stopPropagation = e => e.stopPropagation();
+  [inputEl, outputEl, keyEl].forEach(el => {
+    ['keydown', 'keyup', 'keypress'].forEach(type => {
+      el.addEventListener(type, stopPropagation);
+      el.addEventListener(type, stopPropagation, true);
+    });
+  });
+
   const importKey = keyStr => {
     const keyBytes = new TextEncoder().encode(keyStr).slice(0, 16);
     const keyBuffer = new Uint8Array(16);
