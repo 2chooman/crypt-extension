@@ -1,9 +1,7 @@
 #sample-extension-overlay {
   position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 10px;
+  right: 10px;
   z-index: 10000;
 }
 
@@ -11,6 +9,8 @@
   background: #fff;
   padding: 20px;
   border-radius: 8px;
+  width: 600px;
+  height: 400px;
   width: min(600px, 90vw);
   height: min(400px, 80vh);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -19,6 +19,7 @@
 }
 
 #sample-extension-overlay textarea {
+  display: block;
   flex: 1;
   width: 100%;
   margin-bottom: 10px;
