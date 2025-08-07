@@ -1,7 +1,25 @@
 <div class="modal-card position-fixed top-0 end-0 p-3 mt-3 me-3">
-  <textarea id="input-text" class="form-control mb-3" placeholder="Enter text"></textarea>
-  <textarea id="output-text" class="form-control mb-3" placeholder="Output text" readonly></textarea>
-  <input id="key-input" type="text" class="form-control mb-3" placeholder="Key" />
+  <div class="position-relative mb-3 modal-field">
+    <textarea id="input-text" class="form-control pe-5" placeholder="Enter text"></textarea>
+    <button
+      type="button"
+      class="copy-btn btn btn-sm position-absolute top-0 end-0 m-1"
+      data-target="input-text"
+      title="Copy"
+    >📋</button>
+  </div>
+  <div class="position-relative mb-3 modal-field">
+    <textarea id="output-text" class="form-control pe-5" placeholder="Output text" readonly></textarea>
+    <button
+      type="button"
+      class="copy-btn btn btn-sm position-absolute top-0 end-0 m-1"
+      data-target="output-text"
+      title="Copy"
+    >📋</button>
+  </div>
+  <div class="position-relative mb-3">
+    <input id="key-input" type="text" class="form-control pe-5" placeholder="Key" />
+  </div>
   <div class="d-flex gap-2 justify-content-end mt-auto">
     <button class="btn btn-primary encrypt-btn">Encrypt</button>
     <button class="btn btn-success decrypt-btn">Decrypt</button>
