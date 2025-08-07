@@ -1,38 +1,41 @@
-#sample-extension-overlay {
-  position: fixed;
-  top: 10px;
-  right: 10px;
+.overlay {
   z-index: 10000;
+  background-color: rgba(33, 37, 41, 0.5);
 }
 
-#sample-extension-overlay .modal {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 600px;
-  height: 400px;
+.modal-card {
   width: min(600px, 90vw);
   height: min(400px, 80vh);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  background-color: #fff;
+  border-radius: 0.5rem;
 }
 
-#sample-extension-overlay textarea {
-  display: block;
-  flex: 1;
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  padding: 0.375rem 0.75rem;
   width: 100%;
-  margin-bottom: 10px;
+  box-sizing: border-box;
+  color: #212529;
 }
 
-#sample-extension-overlay input[type="text"] {
-  width: 100%;
-  margin-bottom: 10px;
+.btn {
+  border-radius: 0.375rem;
 }
 
-#sample-extension-overlay .button-container {
-  margin-top: auto;
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
+.form-control:focus {
+  color: #212529;
+}
+
+.form-control::placeholder {
+  color: #212529;
+  opacity: 1;
+}
+
+.modal-card textarea {
+  flex: 1 1 0;
+  min-height: 0;
 }

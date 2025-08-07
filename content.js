@@ -3,21 +3,31 @@
     return;
   }
 
+  const overlayHost = document.createElement('div');
+  overlayHost.id = 'sample-extension-overlay';
+  const shadow = overlayHost.attachShadow({ mode: 'open' });
+
+  const bootstrapLink = document.createElement('link');
+  bootstrapLink.rel = 'stylesheet';
+  bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css';
+  shadow.appendChild(bootstrapLink);
+
+  const cssLink = document.createElement('link');
+  cssLink.rel = 'stylesheet';
+  cssLink.href = chrome.runtime.getURL('modal.css');
+  shadow.appendChild(cssLink);
+
   const htmlUrl = chrome.runtime.getURL('modal.html');
   const response = await fetch(htmlUrl);
   const html = await response.text();
   const wrapper = document.createElement('div');
   wrapper.innerHTML = html.trim();
   const overlay = wrapper.firstElementChild;
+  shadow.appendChild(overlay);
 
-  const cssLink = document.createElement('link');
-  cssLink.rel = 'stylesheet';
-  cssLink.href = chrome.runtime.getURL('modal.css');
-  document.head.appendChild(cssLink);
-
-  const inputEl = overlay.querySelector('#input-text');
-  const outputEl = overlay.querySelector('#output-text');
-  const keyEl = overlay.querySelector('#key-input');
+  const inputEl = shadow.getElementById('input-text');
+  const outputEl = shadow.getElementById('output-text');
+  const keyEl = shadow.getElementById('key-input');
 
   function importKey(keyStr) {
     const enc = new TextEncoder();
@@ -75,7 +85,7 @@
     return new TextDecoder().decode(decrypted);
   }
 
-  overlay.querySelector('.encrypt-btn').addEventListener('click', async () => {
+  shadow.querySelector('.encrypt-btn').addEventListener('click', async () => {
     if (!keyEl.value) {
       outputEl.value = 'Key required';
       return;
@@ -87,7 +97,7 @@
     }
   });
 
-  overlay.querySelector('.decrypt-btn').addEventListener('click', async () => {
+  shadow.querySelector('.decrypt-btn').addEventListener('click', async () => {
     if (!keyEl.value) {
       outputEl.value = 'Key required';
       return;
@@ -99,10 +109,9 @@
     }
   });
 
-  overlay.querySelector('.close-btn').addEventListener('click', () => {
-    overlay.remove();
-    cssLink.remove();
+  shadow.querySelector('.close-btn').addEventListener('click', () => {
+    overlayHost.remove();
   });
 
-  document.body.appendChild(overlay);
+  document.body.appendChild(overlayHost);
 })();
