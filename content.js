@@ -1,64 +1,44 @@
 (async () => {
-  if (document.getElementById('sample-extension-overlay')) {
-    return;
-  }
+  if (document.getElementById('sample-extension-overlay')) return;
 
   const overlayHost = document.createElement('div');
   overlayHost.id = 'sample-extension-overlay';
   const shadow = overlayHost.attachShadow({ mode: 'open' });
 
-  const bootstrapLink = document.createElement('link');
-  bootstrapLink.rel = 'stylesheet';
-  bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css';
-  shadow.appendChild(bootstrapLink);
+  const addStyle = href => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    shadow.appendChild(link);
+  };
+  addStyle('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+  addStyle(chrome.runtime.getURL('modal.css'));
 
-  const cssLink = document.createElement('link');
-  cssLink.rel = 'stylesheet';
-  cssLink.href = chrome.runtime.getURL('modal.css');
-  shadow.appendChild(cssLink);
-
-  const htmlUrl = chrome.runtime.getURL('modal.html');
-  const response = await fetch(htmlUrl);
-  const html = await response.text();
+  const html = await (await fetch(chrome.runtime.getURL('modal.html'))).text();
   const wrapper = document.createElement('div');
   wrapper.innerHTML = html.trim();
   const overlay = wrapper.firstElementChild;
   shadow.appendChild(overlay);
 
-  const inputEl = shadow.getElementById('input-text');
-  const outputEl = shadow.getElementById('output-text');
-  const keyEl = shadow.getElementById('key-input');
+  const $ = id => shadow.getElementById(id);
+  const inputEl = $('input-text');
+  const outputEl = $('output-text');
+  const keyEl = $('key-input');
 
-  function importKey(keyStr) {
-    const enc = new TextEncoder();
-    const keyBytes = enc.encode(keyStr);
+  const importKey = keyStr => {
+    const keyBytes = new TextEncoder().encode(keyStr).slice(0, 16);
     const keyBuffer = new Uint8Array(16);
-    keyBuffer.set(keyBytes.slice(0, 16));
+    keyBuffer.set(keyBytes);
     return crypto.subtle.importKey('raw', keyBuffer, { name: 'AES-CBC' }, false, [
       'encrypt',
       'decrypt',
     ]);
-  }
+  };
 
-  function bufferToBase64(buffer) {
-    const bytes = new Uint8Array(buffer);
-    let binary = '';
-    for (let i = 0; i < bytes.length; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  }
+  const bufferToBase64 = buffer => btoa(String.fromCharCode(...new Uint8Array(buffer)));
+  const base64ToBuffer = base64 => Uint8Array.from(atob(base64), c => c.charCodeAt(0));
 
-  function base64ToBuffer(base64) {
-    const binary = atob(base64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) {
-      bytes[i] = binary.charCodeAt(i);
-    }
-    return bytes;
-  }
-
-  async function encryptText(text, keyStr) {
+  const encryptText = async (text, keyStr) => {
     const key = await importKey(keyStr);
     const iv = crypto.getRandomValues(new Uint8Array(16));
     const encrypted = await crypto.subtle.encrypt(
@@ -67,12 +47,12 @@
       new TextEncoder().encode(text)
     );
     const combined = new Uint8Array(iv.byteLength + encrypted.byteLength);
-    combined.set(iv, 0);
+    combined.set(iv);
     combined.set(new Uint8Array(encrypted), iv.byteLength);
     return bufferToBase64(combined);
-  }
+  };
 
-  async function decryptText(cipherText, keyStr) {
+  const decryptText = async (cipherText, keyStr) => {
     const data = base64ToBuffer(cipherText);
     const iv = data.slice(0, 16);
     const encrypted = data.slice(16);
@@ -83,35 +63,24 @@
       encrypted
     );
     return new TextDecoder().decode(decrypted);
-  }
+  };
 
-  shadow.querySelector('.encrypt-btn').addEventListener('click', async () => {
+  const handleCrypto = fn => async () => {
     if (!keyEl.value) {
       outputEl.value = 'Key required';
       return;
     }
     try {
-      outputEl.value = await encryptText(inputEl.value, keyEl.value);
+      outputEl.value = await fn(inputEl.value, keyEl.value);
     } catch (e) {
       outputEl.value = `Error: ${e.message}`;
     }
-  });
+  };
 
-  shadow.querySelector('.decrypt-btn').addEventListener('click', async () => {
-    if (!keyEl.value) {
-      outputEl.value = 'Key required';
-      return;
-    }
-    try {
-      outputEl.value = await decryptText(inputEl.value, keyEl.value);
-    } catch (e) {
-      outputEl.value = `Error: ${e.message}`;
-    }
-  });
-
-  shadow.querySelector('.close-btn').addEventListener('click', () => {
-    overlayHost.remove();
-  });
+  shadow.querySelector('.encrypt-btn').addEventListener('click', handleCrypto(encryptText));
+  shadow.querySelector('.decrypt-btn').addEventListener('click', handleCrypto(decryptText));
+  shadow.querySelector('.close-btn').addEventListener('click', () => overlayHost.remove());
 
   document.body.appendChild(overlayHost);
 })();
+
