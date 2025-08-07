@@ -1,12 +1,12 @@
-<div id="sample-extension-overlay">
-  <div class="modal">
-    <textarea id="input-text" placeholder="Enter text"></textarea>
-    <textarea id="output-text" placeholder="Output text" readonly></textarea>
-    <input id="key-input" type="text" placeholder="Key" />
-    <div class="button-container">
-      <button class="encrypt-btn">Encrypt</button>
-      <button class="decrypt-btn">Decrypt</button>
-      <button class="close-btn">Close</button>
+<div id="sample-extension-overlay" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-50">
+  <div class="card modal-card p-3 shadow">
+    <textarea id="input-text" class="form-control mb-3" placeholder="Enter text"></textarea>
+    <textarea id="output-text" class="form-control mb-3" placeholder="Output text" readonly></textarea>
+    <input id="key-input" type="text" class="form-control mb-3" placeholder="Key" />
+    <div class="d-flex gap-2 justify-content-end mt-auto">
+      <button class="btn btn-primary encrypt-btn">Encrypt</button>
+      <button class="btn btn-secondary decrypt-btn">Decrypt</button>
+      <button class="btn btn-outline-secondary close-btn">Close</button>
     </div>
   </div>
 </div>

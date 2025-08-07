@@ -10,6 +10,11 @@
   wrapper.innerHTML = html.trim();
   const overlay = wrapper.firstElementChild;
 
+  const bootstrapLink = document.createElement('link');
+  bootstrapLink.rel = 'stylesheet';
+  bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css';
+  document.head.appendChild(bootstrapLink);
+
   const cssLink = document.createElement('link');
   cssLink.rel = 'stylesheet';
   cssLink.href = chrome.runtime.getURL('modal.css');
@@ -102,6 +107,7 @@
   overlay.querySelector('.close-btn').addEventListener('click', () => {
     overlay.remove();
     cssLink.remove();
+    bootstrapLink.remove();
   });
 
   document.body.appendChild(overlay);
