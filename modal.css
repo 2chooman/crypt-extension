@@ -1,8 +1,8 @@
-#sample-extension-overlay {
+.overlay {
   z-index: 10000;
 }
 
-#sample-extension-overlay .modal-card {
+.modal-card {
   width: min(600px, 90vw);
   height: min(400px, 80vh);
   display: flex;
