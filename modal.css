@@ -1,9 +1,5 @@
-.overlay {
-  z-index: 10000;
-  background-color: rgba(1, 4, 9, 0.6);
-}
-
 .modal-card {
+  z-index: 10000;
   width: min(600px, 90vw);
   height: min(400px, 80vh);
   display: flex;
@@ -53,16 +49,24 @@
   background-color: #30363d;
 }
 
-.btn-primary,
 .btn-success {
   background-color: #238636;
   border-color: #2ea043;
   color: #fff;
 }
 
-.btn-primary:hover,
 .btn-success:hover {
   background-color: #2ea043;
+}
+
+.btn-primary {
+  background-color: #1f6feb;
+  border-color: #388bfd;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #388bfd;
 }
 
 .btn-outline-secondary {
