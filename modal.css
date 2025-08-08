@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('fonts/TitilliumWeb-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .modal-card {
   z-index: 10000;
   width: min(600px, 90vw);
@@ -90,4 +97,8 @@
 .copy-btn {
   line-height: 1;
   padding: 0.25rem 0.5rem;
+}
+
+.ciphermate-text {
+  font-family: 'Titillium Web', sans-serif;
 }
