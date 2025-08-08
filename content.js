@@ -1,6 +1,13 @@
 (async () => {
   if (document.getElementById('sample-extension-overlay')) return;
 
+  const font = new FontFace(
+    'Titillium Web',
+    `url('${chrome.runtime.getURL('fonts/TitilliumWeb-Regular.ttf')}')`
+  );
+  await font.load();
+  document.fonts.add(font);
+
   const overlayHost = document.createElement('div');
   overlayHost.id = 'sample-extension-overlay';
   const shadow = overlayHost.attachShadow({ mode: 'open' });
