@@ -11,8 +11,19 @@
     link.href = href;
     shadow.appendChild(link);
   };
-  addStyle('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
-  addStyle(chrome.runtime.getURL('modal.css'));
+    addStyle('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+    addStyle(chrome.runtime.getURL('modal.css'));
+
+    const fontStyle = document.createElement('style');
+    fontStyle.textContent = `
+@font-face {
+  font-family: 'Titillium Web';
+  src: url(${chrome.runtime.getURL('fonts/TitilliumWeb-Regular.ttf')}) format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}`;
+    shadow.appendChild(fontStyle);
 
   const html = await (await fetch(chrome.runtime.getURL('modal.html'))).text();
   const wrapper = document.createElement('div');
