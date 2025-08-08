@@ -22,7 +22,11 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["modal.html", "modal.css"],
+      "resources": [
+        "modal.html",
+        "modal.css",
+        "fonts/TitilliumWeb-Regular.ttf"
+      ],
       "matches": ["<all_urls>"]
     }
   ]

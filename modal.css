@@ -1,8 +1,9 @@
 @font-face {
-  font-family: "TitilliumWeb";
+  font-family: "Titillium Web";
   src: url("fonts/TitilliumWeb-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 .modal-card {
@@ -100,5 +101,5 @@
 }
 
 .ciphermate-text {
-  font-family: "TitilliumWeb", sans-serif;
+  font-family: "Titillium Web", sans-serif;
 }
