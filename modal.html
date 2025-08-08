@@ -1,4 +1,5 @@
 <div class="modal-card position-fixed top-0 end-0 p-3 mt-3 me-3">
+  <!-- Text input that users want to encrypt or decrypt -->
   <div class="position-relative mb-3 modal-field">
     <textarea id="input-text" class="form-control pe-5" placeholder="Enter text"></textarea>
     <button
@@ -8,6 +9,8 @@
       title="Copy"
     >📋</button>
   </div>
+
+  <!-- Area where results are displayed -->
   <div class="position-relative mb-3 modal-field">
     <textarea id="output-text" class="form-control pe-5" placeholder="Output text" readonly></textarea>
     <button
@@ -17,9 +20,13 @@
       title="Copy"
     >📋</button>
   </div>
+
+  <!-- Shared secret used for encryption/decryption -->
   <div class="position-relative mb-3">
     <input id="key-input" type="text" class="form-control pe-5" placeholder="Key" />
   </div>
+
+  <!-- Footer with app name and action buttons -->
   <div class="d-flex gap-2 align-items-center mt-auto">
     <span class="me-auto ciphermate-text">CipherMate</span>
     <button class="btn btn-primary encrypt-btn">Encrypt</button>
