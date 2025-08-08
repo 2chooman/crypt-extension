@@ -91,3 +91,8 @@
   line-height: 1;
   padding: 0.25rem 0.5rem;
 }
+
+.ciphermate-text {
+  font-size: 0.875rem;
+  color: #8b949e;
+}
